@@ -22,7 +22,7 @@ export default function Hero() {
       const formElement = e.target as HTMLFormElement;
       const formDataObj = new FormData(formElement);
 
-      await fetch('https://freescout-installation.com/crm/modules/Webforms/capture.php', {
+      await fetch('https://crm.freescout-installation.com/modules/Webforms/capture.php', {
         method: 'POST',
         body: formDataObj,
         mode: 'no-cors'
