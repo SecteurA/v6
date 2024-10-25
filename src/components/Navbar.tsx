@@ -13,11 +13,12 @@ export default function Navbar() {
               <img 
                 src="/images/logo.svg"
                 alt="FreeScout Installation Service"
-                width="200"
-                height="50"
+                width={200}
+                height={50}
                 className="h-[50px] w-[200px] object-contain"
                 loading="eager"
                 decoding="async"
+                priority="high"
               />
             </a>
           </div>
