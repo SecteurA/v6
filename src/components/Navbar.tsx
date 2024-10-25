@@ -14,8 +14,6 @@ export default function Navbar() {
                 src="/images/logo.svg"
                 alt="FreeScout Installation Service" 
                 className="h-[50px] w-[200px] object-contain"
-                loading="eager"  
-                decoding="async"
               />
             </a>
           </div>
@@ -87,4 +85,3 @@ export default function Navbar() {
     </nav>
   );
 }
-  
