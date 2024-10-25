@@ -12,36 +12,36 @@ export default function Navbar() {
             <a href="/index.html" className="flex items-center gap-3">
               <img 
                 src="/images/logo.svg"
-                alt="FreeScout Installation Service" 
-                className="h-[50px] w-[200px] object-contain"
+                alt="FreeScout Installation Service"
                 width="200"
                 height="50"
+                className="h-[50px] w-[200px] object-contain"
                 loading="eager"
-                fetchPriority="high"
+                fetchpriority="high"
                 decoding="async"
               />
             </a>
           </div>
           
           <div className="hidden md:flex items-center space-x-8">
-            <a href="/index.html" className="text-gray-600 hover:text-[#75b666] flex items-center gap-2">
+            <a href="/index.html" className="text-gray-600 hover:text-[#235585] flex items-center gap-2">
               <Home className="h-4 w-4" />
               Home
             </a>
-            <a href="/about.html" className="text-gray-600 hover:text-[#75b666]">About</a>
+            <a href="/about.html" className="text-gray-600 hover:text-[#235585]">About</a>
             <a 
               href="https://freescout.net/modules/" 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="text-gray-600 hover:text-[#75b666]"
+              className="text-gray-600 hover:text-[#235585]"
             >
               Official Modules
             </a>
-            <a href="/pricing.html" className="text-gray-600 hover:text-[#75b666]">Pricing</a>
-            <a href="/contact.html" className="text-gray-600 hover:text-[#75b666]">Contact</a>
+            <a href="/pricing.html" className="text-gray-600 hover:text-[#235585]">Pricing</a>
+            <a href="/contact.html" className="text-gray-600 hover:text-[#235585]">Contact</a>
             <a 
               href="/install-freescout.html" 
-              className="bg-[#75b666] text-white px-4 py-2 rounded-md hover:bg-[#235585] transition-colors"
+              className="bg-[#235585] text-white px-4 py-2 rounded-md hover:bg-[#1a3f66] transition-colors"
               aria-label="Get started with FreeScout installation"
             >
               Get Started
@@ -63,24 +63,24 @@ export default function Navbar() {
       {isOpen && (
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <a href="/index.html" className="flex items-center gap-2 px-3 py-2 text-gray-600 hover:text-[#75b666]">
+            <a href="/index.html" className="flex items-center gap-2 px-3 py-2 text-gray-600 hover:text-[#235585]">
               <Home className="h-4 w-4" />
               Home
             </a>
-            <a href="/about.html" className="block px-3 py-2 text-gray-600 hover:text-[#75b666]">About</a>
+            <a href="/about.html" className="block px-3 py-2 text-gray-600 hover:text-[#235585]">About</a>
             <a 
               href="https://freescout.net/modules/" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="block px-3 py-2 text-gray-600 hover:text-[#75b666]"
+              className="block px-3 py-2 text-gray-600 hover:text-[#235585]"
             >
               Official Modules
             </a>
-            <a href="/pricing.html" className="block px-3 py-2 text-gray-600 hover:text-[#75b666]">Pricing</a>
-            <a href="/contact.html" className="block px-3 py-2 text-gray-600 hover:text-[#75b666]">Contact</a>
+            <a href="/pricing.html" className="block px-3 py-2 text-gray-600 hover:text-[#235585]">Pricing</a>
+            <a href="/contact.html" className="block px-3 py-2 text-gray-600 hover:text-[#235585]">Contact</a>
             <a 
               href="/install-freescout.html" 
-              className="block px-3 py-2 text-[#75b666] font-medium hover:bg-[#235585] hover:text-white"
+              className="block px-3 py-2 text-[#235585] font-medium hover:bg-[#235585] hover:text-white rounded-md transition-colors"
             >
               Get Started
             </a>
