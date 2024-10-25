@@ -17,7 +17,6 @@ export default function Navbar() {
                 height="50"
                 className="h-[50px] w-[200px] object-contain"
                 loading="eager"
-                fetchpriority="high"
                 decoding="async"
               />
             </a>
