@@ -100,4 +100,4 @@ export default function Hero() {
               
               <form onSubmit={handleSubmit} className="space-y-4">
                 <input type="hidden" name="__vtrftk" value="sid:df196c95e9d2996a71f7731dfbaf2ccc7aa98c48,1729701852" />
-                <input type="hidden"
+                <input type="hidden"></input>
