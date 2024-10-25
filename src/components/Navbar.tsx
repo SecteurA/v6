@@ -14,6 +14,8 @@ export default function Navbar() {
                 src="/images/logo.svg"
                 alt="FreeScout Installation Service" 
                 className="h-[50px] w-[200px] object-contain"
+                loading="eager"  {/* Keeps loading eager to prioritize rendering */}
+                decoding="async"  {/* Keeps decoding async to avoid render-blocking */}
               />
             </a>
           </div>
