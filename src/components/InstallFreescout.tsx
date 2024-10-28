@@ -1,5 +1,5 @@
 import { lazy, useState, useEffect } from 'react';
-import { Package, Mail, Phone, User, CheckCircle, AlertCircle, DollarSign, Shield, Zap, Clock } from 'lucide-react';
+import { Package, Mail, Phone, User, CheckCircle, AlertCircle, Shield, Zap, Clock } from 'lucide-react';
 import PayPalButton from './PayPalButton';
 
 const FAQ = lazy(() => import('./FAQ'));
