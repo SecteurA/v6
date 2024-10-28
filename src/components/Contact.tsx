@@ -7,9 +7,9 @@ interface FormData {
   firstname: string;
   lastname: string;
   email: string;
-  phone: string;
-  message: string;
-  subject: string;
+  mobile: string;
+  cf_874: string; // Subject
+  cf_876: string; // Message
 }
 
 export default function Contact() {
@@ -17,28 +17,13 @@ export default function Contact() {
     firstname: '',
     lastname: '',
     email: '',
-    phone: '',
-    message: '',
-    subject: ''
+    mobile: '',
+    cf_874: '',
+    cf_876: ''
   });
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
-
-    try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      window.location.href = '/thank-you.html';
-    } catch (error) {
-      setError('There was an error submitting the form. Please try again.');
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const contactInfo = [
     {
@@ -60,6 +45,29 @@ export default function Contact() {
       color: "text-purple-500"
     }
   ];
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    try {
+      const formElement = e.target as HTMLFormElement;
+      const formDataObj = new FormData(formElement);
+
+      await fetch('https://crm.freescout-installation.com/modules/Webforms/capture.php', {
+        method: 'POST',
+        body: formDataObj,
+        mode: 'no-cors'
+      });
+
+      window.location.href = '/thank-you.html';
+    } catch (error) {
+      setError('There was an error submitting the form. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -145,7 +153,18 @@ export default function Contact() {
 
               <h2 className="text-3xl font-bold text-center mb-8">Send Us a Message</h2>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form 
+                onSubmit={handleSubmit} 
+                className="space-y-6" 
+                acceptCharset="utf-8" 
+                encType="multipart/form-data"
+              >
+                {/* Hidden VTiger fields */}
+                <input type="hidden" name="__vtrftk" value="sid:e7b5e02f433c00772efc52c9cdfa424eab277dc0,1730086685" />
+                <input type="hidden" name="publicid" value="1f5c5e1de4787d458ba222d4368986bf" />
+                <input type="hidden" name="urlencodeenable" value="1" />
+                <input type="hidden" name="name" value="Contact_form-Website" />
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label htmlFor="firstname" className="flex items-center text-sm font-medium text-gray-700">
@@ -155,7 +174,7 @@ export default function Contact() {
                     <input
                       type="text"
                       id="firstname"
-                      required
+                      name="firstname"
                       className="block w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:ring-2 focus:ring-[#75b666] focus:border-transparent transition duration-200"
                       value={formData.firstname}
                       onChange={(e) => setFormData({...formData, firstname: e.target.value})}
@@ -164,11 +183,12 @@ export default function Contact() {
                   <div className="space-y-2">
                     <label htmlFor="lastname" className="flex items-center text-sm font-medium text-gray-700">
                       <User className="w-4 h-4 mr-2 text-[#75b666]" />
-                      Last Name
+                      Last Name *
                     </label>
                     <input
                       type="text"
                       id="lastname"
+                      name="lastname"
                       required
                       className="block w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:ring-2 focus:ring-[#75b666] focus:border-transparent transition duration-200"
                       value={formData.lastname}
@@ -179,62 +199,66 @@ export default function Contact() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
+                    <label htmlFor="mobile" className="flex items-center text-sm font-medium text-gray-700">
+                      <Phone className="w-4 h-4 mr-2 text-[#75b666]" />
+                      Mobile Phone *
+                    </label>
+                    <input
+                      type="tel"
+                      id="mobile"
+                      name="mobile"
+                      required
+                      className="block w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:ring-2 focus:ring-[#75b666] focus:border-transparent transition duration-200"
+                      value={formData.mobile}
+                      onChange={(e) => setFormData({...formData, mobile: e.target.value})}
+                    />
+                  </div>
+                  <div className="space-y-2">
                     <label htmlFor="email" className="flex items-center text-sm font-medium text-gray-700">
                       <Mail className="w-4 h-4 mr-2 text-[#75b666]" />
-                      Email Address
+                      Email Address *
                     </label>
                     <input
                       type="email"
                       id="email"
+                      name="email"
                       required
                       className="block w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:ring-2 focus:ring-[#75b666] focus:border-transparent transition duration-200"
                       value={formData.email}
                       onChange={(e) => setFormData({...formData, email: e.target.value})}
                     />
                   </div>
-                  <div className="space-y-2">
-                    <label htmlFor="phone" className="flex items-center text-sm font-medium text-gray-700">
-                      <Phone className="w-4 h-4 mr-2 text-[#75b666]" />
-                      Phone Number
-                    </label>
-                    <input
-                      type="tel"
-                      id="phone"
-                      required
-                      className="block w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:ring-2 focus:ring-[#75b666] focus:border-transparent transition duration-200"
-                      value={formData.phone}
-                      onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                    />
-                  </div>
                 </div>
 
                 <div className="space-y-2">
-                  <label htmlFor="subject" className="flex items-center text-sm font-medium text-gray-700">
+                  <label htmlFor="cf_874" className="flex items-center text-sm font-medium text-gray-700">
                     <MessageSquare className="w-4 h-4 mr-2 text-[#75b666]" />
-                    Subject
+                    Subject *
                   </label>
                   <input
                     type="text"
-                    id="subject"
+                    id="cf_874"
+                    name="cf_874"
                     required
                     className="block w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:ring-2 focus:ring-[#75b666] focus:border-transparent transition duration-200"
-                    value={formData.subject}
-                    onChange={(e) => setFormData({...formData, subject: e.target.value})}
+                    value={formData.cf_874}
+                    onChange={(e) => setFormData({...formData, cf_874: e.target.value})}
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label htmlFor="message" className="flex items-center text-sm font-medium text-gray-700">
+                  <label htmlFor="cf_876" className="flex items-center text-sm font-medium text-gray-700">
                     <MessageSquare className="w-4 h-4 mr-2 text-[#75b666]" />
-                    Message
+                    Message *
                   </label>
                   <textarea
-                    id="message"
+                    id="cf_876"
+                    name="cf_876"
                     rows={4}
                     required
                     className="block w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:ring-2 focus:ring-[#75b666] focus:border-transparent transition duration-200"
-                    value={formData.message}
-                    onChange={(e) => setFormData({...formData, message: e.target.value})}
+                    value={formData.cf_876}
+                    onChange={(e) => setFormData({...formData, cf_876: e.target.value})}
                   ></textarea>
                 </div>
 
