@@ -126,7 +126,7 @@ export default function Hero() {
               <form onSubmit={handleSubmit} className="space-y-4">
                 {/* Hidden VTiger form fields */}
                 <input type="hidden" name="__vtrftk" value="sid:df196c95e9d2996a71f7731dfbaf2ccc7aa98c48,1729701852" />
-                <input type="hidden" name="publicid" value="f321530aa2e8303ffec7db84b712d9e3" />
+                <input type="hidden" name="publicid" value="1de7524d7413296c53c157014f9b8e3f" />
                 <input type="hidden" name="urlencodeenable" value="1" />
                 <input type="hidden" name="name" value="FreeScout_leads" />
                 <input type="hidden" name="cf_852" value={formData.cf_852} />
