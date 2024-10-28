@@ -77,7 +77,7 @@ export default function Testimonials() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
-            Trusted by Companies Worldwide
+            Client Experiences & Reviews
           </h2>
           <p className="mt-4 text-xl text-gray-600">
             See what our clients say about our installation service
