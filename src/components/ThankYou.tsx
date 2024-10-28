@@ -28,7 +28,7 @@ export default function ThankYou() {
               If you have any questions, please contact us at:
             </p>
             <p className="font-semibold text-gray-900">
-              support@freescout-installation.com
+              contact@freescout-installation.com
             </p>
           </div>
           <div className="mt-8">
