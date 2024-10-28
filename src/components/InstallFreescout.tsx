@@ -1,4 +1,4 @@
-import { lazy, useState } from 'react';
+import { lazy, useState, useEffect } from 'react';
 import { Package, Mail, Phone, User, CheckCircle, AlertCircle, DollarSign, Shield, Zap, Clock } from 'lucide-react';
 import PayPalButton from './PayPalButton';
 
@@ -8,7 +8,6 @@ interface Package {
   value: string;
   label: string;
   price: number;
-  features: string[];
 }
 
 interface FormData {
@@ -16,7 +15,7 @@ interface FormData {
   lastname: string;
   mobile: string;
   email: string;
-  package: string;
+  cf_852: string;
 }
 
 export default function InstallFreescout() {
@@ -25,32 +24,36 @@ export default function InstallFreescout() {
     lastname: '',
     mobile: '',
     email: '',
-    package: ''
+    cf_852: ''
   });
 
   const [showPayPal, setShowPayPal] = useState(false);
   const [selectedPrice, setSelectedPrice] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [mounted, setMounted] = useState(true);
+
+  useEffect(() => {
+    return () => {
+      setMounted(false);
+    };
+  }, []);
 
   const packages: Package[] = [
     {
       value: "Basic installation",
-      label: "Basic installation",
-      price: 100,
-      features: ["3 Mailboxes", "5 Users", "5 Modules", "1 Email Signature"]
+      label: "Basic Installation - $100",
+      price: 100
     },
     {
       value: "Pro installation",
-      label: "Pro installation",
-      price: 150,
-      features: ["5 Mailboxes", "10 Users", "10 Modules", "Custom Branding"]
+      label: "Pro Installation - $150",
+      price: 150
     },
     {
       value: "Ultimate installation",
-      label: "Ultimate installation",
-      price: 200,
-      features: ["10 Mailboxes", "50 Users", "20 Modules", "Mobile App Setup"]
+      label: "Ultimate Installation - $200",
+      price: 200
     }
   ];
 
@@ -77,11 +80,13 @@ export default function InstallFreescout() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!mounted) return;
+
     setError(null);
     setLoading(true);
 
     try {
-      if (!formData.firstname || !formData.lastname || !formData.mobile || !formData.email || !formData.package) {
+      if (!formData.firstname || !formData.lastname || !formData.mobile || !formData.email || !formData.cf_852) {
         throw new Error('Please fill in all required fields');
       }
 
@@ -94,34 +99,48 @@ export default function InstallFreescout() {
         mode: 'no-cors'
       });
 
-      const selectedPackage = packages.find(pkg => pkg.value === formData.package);
-      if (selectedPackage) {
+      const selectedPackage = packages.find(pkg => pkg.value === formData.cf_852);
+      if (selectedPackage && mounted) {
         setSelectedPrice(selectedPackage.price);
         setShowPayPal(true);
       } else {
         throw new Error('Please select a package');
       }
     } catch (error) {
-      setError(error instanceof Error ? error.message : 'An unexpected error occurred');
-      setShowPayPal(false);
+      if (mounted) {
+        setError(error instanceof Error ? error.message : 'An unexpected error occurred');
+        setShowPayPal(false);
+      }
     } finally {
-      setLoading(false);
+      if (mounted) {
+        setLoading(false);
+      }
     }
   };
 
-  const handlePackageSelect = (pkg: Package) => {
-    setFormData(prev => ({ ...prev, package: pkg.value }));
-    setSelectedPrice(pkg.price);
-    setError(null);
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+
+    if (name === 'cf_852') {
+      const selectedPackage = packages.find(pkg => pkg.value === value);
+      if (selectedPackage) {
+        setSelectedPrice(selectedPackage.price);
+      }
+    }
   };
 
   const handlePayPalSuccess = () => {
-    window.location.href = '/thank-you.html';
+    if (mounted) {
+      window.location.href = '/thank-you.html';
+    }
   };
 
   const handlePayPalError = (error: Error) => {
-    setError(error.message);
-    setShowPayPal(false);
+    if (mounted) {
+      setError(error.message);
+      setShowPayPal(false);
+    }
   };
 
   return (
@@ -222,7 +241,7 @@ export default function InstallFreescout() {
                       required
                       className="block w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:ring-2 focus:ring-[#75b666] focus:border-transparent transition duration-200"
                       value={formData.firstname}
-                      onChange={(e) => setFormData(prev => ({ ...prev, firstname: e.target.value }))}
+                      onChange={handleInputChange}
                     />
                   </div>
                   <div className="space-y-2">
@@ -237,7 +256,7 @@ export default function InstallFreescout() {
                       required
                       className="block w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:ring-2 focus:ring-[#75b666] focus:border-transparent transition duration-200"
                       value={formData.lastname}
-                      onChange={(e) => setFormData(prev => ({ ...prev, lastname: e.target.value }))}
+                      onChange={handleInputChange}
                     />
                   </div>
                 </div>
@@ -256,7 +275,7 @@ export default function InstallFreescout() {
                       pattern="[0-9+\-\s()]+"
                       className="block w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:ring-2 focus:ring-[#75b666] focus:border-transparent transition duration-200"
                       value={formData.mobile}
-                      onChange={(e) => setFormData(prev => ({ ...prev, mobile: e.target.value }))}
+                      onChange={handleInputChange}
                     />
                   </div>
                   <div className="space-y-2">
@@ -271,56 +290,31 @@ export default function InstallFreescout() {
                       required
                       className="block w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:ring-2 focus:ring-[#75b666] focus:border-transparent transition duration-200"
                       value={formData.email}
-                      onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                      onChange={handleInputChange}
                     />
                   </div>
                 </div>
 
-                <div className="space-y-4">
-                  <label className="flex items-center text-sm font-medium text-gray-700">
+                <div className="space-y-2">
+                  <label htmlFor="cf_852" className="flex items-center text-sm font-medium text-gray-700">
                     <Package className="w-4 h-4 mr-2 text-[#75b666]" />
                     Select Package
                   </label>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <select
+                    id="cf_852"
+                    name="cf_852"
+                    required
+                    className="block w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:ring-2 focus:ring-[#75b666] focus:border-transparent transition duration-200"
+                    value={formData.cf_852}
+                    onChange={handleInputChange}
+                  >
+                    <option value="">Choose a package...</option>
                     {packages.map((pkg) => (
-                      <div key={pkg.value} className="relative">
-                        <input
-                          type="radio"
-                          id={pkg.value}
-                          name="cf_852"
-                          value={pkg.value}
-                          required
-                          checked={formData.package === pkg.value}
-                          onChange={() => handlePackageSelect(pkg)}
-                          className="peer absolute opacity-0"
-                        />
-                        <label
-                          htmlFor={pkg.value}
-                          className="block h-full p-6 bg-gray-50 rounded-lg border-2 border-gray-200 cursor-pointer transition-all peer-checked:border-[#75b666] peer-checked:bg-green-50 hover:border-[#75b666]"
-                        >
-                          <div className="flex flex-col items-center mb-4">
-                            <span className="font-medium text-gray-900 text-lg mb-2">{pkg.label.split(' ')[0]}</span>
-                            <div className="flex items-center justify-center gap-1">
-                              <DollarSign className="h-5 w-5 text-[#75b666]" />
-                              <span className="text-2xl font-bold text-[#75b666]">{pkg.price}</span>
-                            </div>
-                            <span className="text-sm text-gray-600">One-time payment</span>
-                          </div>
-                          <ul className="text-sm text-gray-600 space-y-2">
-                            {pkg.features.map((feature, index) => (
-                              <li key={index} className="flex items-center">
-                                <CheckCircle className="h-4 w-4 text-[#75b666] mr-2 flex-shrink-0" />
-                                <span>{feature}</span>
-                              </li>
-                            ))}
-                          </ul>
-                          <div className="absolute top-4 right-4 opacity-0 peer-checked:opacity-100 transition-opacity">
-                            <CheckCircle className="h-6 w-6 text-[#75b666]" />
-                          </div>
-                        </label>
-                      </div>
+                      <option key={pkg.value} value={pkg.value}>
+                        {pkg.label}
+                      </option>
                     ))}
-                  </div>
+                  </select>
                 </div>
 
                 {!showPayPal ? (
