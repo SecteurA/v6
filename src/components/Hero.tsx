@@ -65,7 +65,7 @@ export default function Hero() {
                 <span className="font-bold text-[#75b666]">Now only $100</span>
               </div>
               
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-6 leading-tight animate-slideInLeft">
+              <h1 className="text-[3.75rem] font-bold text-gray-900 mb-6 leading-tight animate-slideInLeft">
                 Professional
                 <br />
                 <span className="text-[#75b666]">FreeScout</span>
