@@ -1,4 +1,4 @@
-import { Mail, Phone, User, ArrowRight } from 'lucide-react';
+import { Mail, Phone, User, ArrowRight, Inbox, Tag, Server, DollarSign } from 'lucide-react';
 import { useState } from 'react';
 
 export default function Hero() {
@@ -62,12 +62,13 @@ export default function Hero() {
               <div className="inline-flex items-center px-4 py-2 rounded-full bg-[#75b666]/10 text-[#75b666] font-medium text-sm mb-6 animate-fadeIn">
                 <span className="mr-2">🚀</span>
                 <span className="line-through text-gray-500 mr-2">$200</span>
-                <span className="font-bold animate-pulse">Now only $100</span>
+                <span className="font-bold text-[#75b666]">Now only $100</span>
               </div>
               
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight animate-slideInLeft">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-6 leading-tight animate-slideInLeft">
                 Professional
-                <span className="text-[#75b666]"> FreeScout</span>
+                <br />
+                <span className="text-[#75b666]">FreeScout</span>
                 <br />
                 Installation Service
               </h1>
@@ -76,13 +77,35 @@ export default function Hero() {
                 Get your help desk up and running in no time with our expert installation service.
               </p>
 
-              <a
-                href="/install-freescout.html"
-                className="inline-flex items-center px-8 py-4 text-lg font-semibold text-white bg-[#75b666] rounded-lg hover:bg-white hover:text-[#75b666] border-2 border-[#75b666] transition-all duration-300 group mb-8"
-              >
-                Start Installation
-                <ArrowRight className="ml-2 h-5 w-5 transform group-hover:translate-x-1 transition-transform" />
-              </a>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
+                <div className="flex items-center gap-4 p-4 bg-white rounded-lg shadow-sm">
+                  <div className="w-12 h-12 bg-[#75b666]/10 rounded-lg flex items-center justify-center">
+                    <Inbox className="h-6 w-6 text-[#75b666]" />
+                  </div>
+                  <span className="text-gray-700 font-medium">Helpdesk & Shared Mailbox</span>
+                </div>
+                
+                <div className="flex items-center gap-4 p-4 bg-white rounded-lg shadow-sm">
+                  <div className="w-12 h-12 bg-[#75b666]/10 rounded-lg flex items-center justify-center">
+                    <Tag className="h-6 w-6 text-[#75b666]" />
+                  </div>
+                  <span className="text-gray-700 font-medium">Open Source</span>
+                </div>
+                
+                <div className="flex items-center gap-4 p-4 bg-white rounded-lg shadow-sm">
+                  <div className="w-12 h-12 bg-[#75b666]/10 rounded-lg flex items-center justify-center">
+                    <Server className="h-6 w-6 text-[#75b666]" />
+                  </div>
+                  <span className="text-gray-700 font-medium">Hosted on your server</span>
+                </div>
+                
+                <div className="flex items-center gap-4 p-4 bg-white rounded-lg shadow-sm">
+                  <div className="w-12 h-12 bg-[#75b666]/10 rounded-lg flex items-center justify-center">
+                    <DollarSign className="h-6 w-6 text-[#75b666]" />
+                  </div>
+                  <span className="text-gray-700 font-medium">No monthly fees</span>
+                </div>
+              </div>
             </div>
           </div>
 
