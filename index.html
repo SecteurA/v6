@@ -15,7 +15,71 @@
     })(window,document,'script','dataLayer','GTM-P2578C2N');</script>
     <!-- End Google Tag Manager -->
 
-    <!-- Default title and meta tags -->
+    <!-- Dynamic SEO Meta Tags -->
+    <script>
+      const routes = {
+        '/': {
+          title: 'FreeScout Installation Service | Expert Setup & Configuration 2024',
+          description: 'Professional FreeScout installation service. Expert setup, configuration & support for your helpdesk. 24/7 assistance, starting at $100. Get started today!',
+          canonical: 'https://freescout-installation.com/',
+          ogImage: 'https://freescout-installation.com/images/og-home.jpg'
+        },
+        '/about.html': {
+          title: 'About Us | Official FreeScout Installation Partner',
+          description: 'Learn about our certified FreeScout installation experts. 500+ successful setups, professional configuration & 24/7 support.',
+          canonical: 'https://freescout-installation.com/about.html',
+          ogImage: 'https://freescout-installation.com/images/og-about.jpg'
+        },
+        '/pricing.html': {
+          title: 'FreeScout Installation Pricing | Professional Setup Plans',
+          description: 'View our FreeScout installation packages starting from $100. Choose the perfect plan for your business needs.',
+          canonical: 'https://freescout-installation.com/pricing.html',
+          ogImage: 'https://freescout-installation.com/images/og-pricing.jpg'
+        },
+        '/contact.html': {
+          title: 'Contact Us | FreeScout Installation Experts',
+          description: 'Get in touch with our FreeScout installation experts. 24/7 support for setup, configuration & customization.',
+          canonical: 'https://freescout-installation.com/contact.html',
+          ogImage: 'https://freescout-installation.com/images/og-contact.jpg'
+        },
+        '/install-freescout.html': {
+          title: 'Get Started | Professional FreeScout Installation',
+          description: 'Start your FreeScout installation today. Expert setup & configuration from certified professionals.',
+          canonical: 'https://freescout-installation.com/install-freescout.html',
+          ogImage: 'https://freescout-installation.com/images/og-install.jpg'
+        }
+      };
+
+      // Update meta tags based on current path
+      function updateMetaTags() {
+        const path = window.location.pathname === '/' ? '/' : window.location.pathname;
+        const route = routes[path] || routes['/'];
+        
+        // Update title and meta description
+        document.title = route.title;
+        document.querySelector('meta[name="description"]').setAttribute('content', route.description);
+        
+        // Update Open Graph tags
+        document.querySelector('meta[property="og:title"]').setAttribute('content', route.title);
+        document.querySelector('meta[property="og:description"]').setAttribute('content', route.description);
+        document.querySelector('meta[property="og:url"]').setAttribute('content', route.canonical);
+        document.querySelector('meta[property="og:image"]').setAttribute('content', route.ogImage);
+        
+        // Update Twitter Card tags
+        document.querySelector('meta[name="twitter:title"]').setAttribute('content', route.title);
+        document.querySelector('meta[name="twitter:description"]').setAttribute('content', route.description);
+        document.querySelector('meta[name="twitter:image"]').setAttribute('content', route.ogImage);
+        
+        // Update canonical link
+        document.querySelector('link[rel="canonical"]').setAttribute('href', route.canonical);
+      }
+
+      // Update meta tags on page load and route change
+      document.addEventListener('DOMContentLoaded', updateMetaTags);
+      window.addEventListener('popstate', updateMetaTags);
+    </script>
+
+    <!-- Default meta tags (will be updated by script) -->
     <title>FreeScout Installation Service | Expert Setup & Configuration 2024</title>
     <meta name="description" content="Professional FreeScout installation service. Expert setup, configuration & support for your helpdesk. 24/7 assistance, starting at $100. Get started today!" />
     <meta name="keywords" content="freescout, freescout installation, freescout setup, freescout configuration, helpdesk installation, freescout expert" />
@@ -26,7 +90,7 @@
     <meta property="og:description" content="Professional FreeScout installation service. Expert setup, configuration & support for your helpdesk. 24/7 assistance, starting at $100." />
     <meta property="og:url" content="https://freescout-installation.com" />
     <meta property="og:site_name" content="FreeScout Installation Service" />
-    <meta property="og:image" content="https://freescout-installation.com/images/og-image.jpg" />
+    <meta property="og:image" content="https://freescout-installation.com/images/og-home.jpg" />
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
