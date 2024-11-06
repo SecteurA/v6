@@ -4,13 +4,13 @@ Sitemap: https://freescout-installation.com/sitemap.xml
 
 # Block access to specific files and directories
 Disallow: /assets/
-Disallow: /*.js$
-Disallow: /*.css$
 Disallow: /api/
 Disallow: /admin/
 Disallow: /cgi-bin/
 Disallow: /tmp/
 Disallow: /private/
+Disallow: /*.js$
+Disallow: /*.css$
 
 # Allow important pages
 Allow: /index.html
