@@ -1,1 +1,8 @@
 /* /index.html 200
+
+# Redirect www to non-www
+https://www.freescout-installation.com/* https://freescout-installation.com/:splat 301!
+
+# Redirect HTTP to HTTPS
+http://freescout-installation.com/* https://freescout-installation.com/:splat 301!
+http://www.freescout-installation.com/* https://freescout-installation.com/:splat 301!
