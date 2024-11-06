@@ -1,21 +1,22 @@
 User-agent: *
 Allow: /
-Sitemap: https://freescout-installation.com/sitemap.xml
 
-# Block access to specific files and directories
-Disallow: /assets/
-Disallow: /api/
-Disallow: /admin/
-Disallow: /cgi-bin/
-Disallow: /tmp/
-Disallow: /private/
-Disallow: /*.js$
-Disallow: /*.css$
-
-# Allow important pages
+# Main pages
 Allow: /index.html
 Allow: /about.html
 Allow: /pricing.html
 Allow: /contact.html
 Allow: /install-freescout.html
-Allow: /thank-you.html
+
+# Sitemaps
+Sitemap: https://freescout-installation.com/sitemap.xml
+
+# Block unnecessary files
+Disallow: /assets/
+Disallow: /*.js$
+Disallow: /*.css$
+Disallow: /*.json$
+Disallow: /api/
+Disallow: /admin/
+Disallow: /tmp/
+Disallow: /private/
