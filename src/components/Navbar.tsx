@@ -4,6 +4,14 @@ import { useState } from 'react';
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
+  const links = [
+    { href: '/index.html', label: 'Home', icon: Home },
+    { href: '/about.html', label: 'About' },
+    { href: '/pricing.html', label: 'Pricing' },
+    { href: '/contact.html', label: 'Contact' },
+    { href: '/install-freescout.html', label: 'Get Started', primary: true }
+  ];
+
   return (
     <nav className="bg-white shadow-lg fixed w-full z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -18,31 +26,25 @@ export default function Navbar() {
             </a>
           </div>
           
+          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <a href="/index.html" className="text-gray-600 hover:text-[#75b666] flex items-center gap-2">
-              <Home className="h-4 w-4" />
-              Home
-            </a>
-            <a href="/about.html" className="text-gray-600 hover:text-[#75b666]">About</a>
-            <a 
-              href="https://freescout.net/modules/" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="text-gray-600 hover:text-[#75b666]"
-            >
-              Official Modules
-            </a>
-            <a href="/pricing.html" className="text-gray-600 hover:text-[#75b666]">Pricing</a>
-            <a href="/contact.html" className="text-gray-600 hover:text-[#75b666]">Contact</a>
-            <a 
-              href="/install-freescout.html" 
-              className="bg-[#75b666] text-white px-4 py-2 rounded-md hover:bg-[#235585] transition-colors"
-              aria-label="Get started with FreeScout installation"
-            >
-              Get Started
-            </a>
+            {links.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className={`flex items-center gap-2 ${
+                  link.primary
+                    ? 'bg-[#75b666] text-white px-4 py-2 rounded-md hover:bg-[#235585] transition-colors'
+                    : 'text-gray-600 hover:text-[#75b666]'
+                }`}
+              >
+                {link.icon && <link.icon className="h-4 w-4" />}
+                {link.label}
+              </a>
+            ))}
           </div>
 
+          {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center">
             <button 
               onClick={() => setIsOpen(!isOpen)} 
@@ -55,30 +57,24 @@ export default function Navbar() {
         </div>
       </div>
 
+      {/* Mobile Navigation */}
       {isOpen && (
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <a href="/index.html" className="flex items-center gap-2 px-3 py-2 text-gray-600 hover:text-[#75b666]">
-              <Home className="h-4 w-4" />
-              Home
-            </a>
-            <a href="/about.html" className="block px-3 py-2 text-gray-600 hover:text-[#75b666]">About</a>
-            <a 
-              href="https://freescout.net/modules/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="block px-3 py-2 text-gray-600 hover:text-[#75b666]"
-            >
-              Official Modules
-            </a>
-            <a href="/pricing.html" className="block px-3 py-2 text-gray-600 hover:text-[#75b666]">Pricing</a>
-            <a href="/contact.html" className="block px-3 py-2 text-gray-600 hover:text-[#75b666]">Contact</a>
-            <a 
-              href="/install-freescout.html" 
-              className="block px-3 py-2 text-[#75b666] font-medium hover:bg-[#235585] hover:text-white"
-            >
-              Get Started
-            </a>
+            {links.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className={`flex items-center gap-2 px-3 py-2 ${
+                  link.primary
+                    ? 'text-[#75b666] font-medium hover:bg-[#235585] hover:text-white'
+                    : 'text-gray-600 hover:text-[#75b666]'
+                }`}
+              >
+                {link.icon && <link.icon className="h-4 w-4" />}
+                {link.label}
+              </a>
+            ))}
           </div>
         </div>
       )}
