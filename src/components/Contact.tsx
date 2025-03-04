@@ -3,25 +3,7 @@ import { Mail, Phone, MessageSquare, User, Send, AlertCircle, Clock, MapPin, Glo
 
 const FAQ = lazy(() => import('./FAQ'));
 
-interface FormData {
-  firstname: string;
-  lastname: string;
-  email: string;
-  mobile: string;
-  cf_874: string; // Subject
-  cf_1005: string; // Message
-}
-
 export default function Contact() {
-  const [formData, setFormData] = useState<FormData>({
-    firstname: '',
-    lastname: '',
-    email: '',
-    mobile: '',
-    cf_874: '',
-    cf_1005: ''
-  });
-
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -46,27 +28,16 @@ export default function Contact() {
     }
   ];
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
-
-    try {
-      const formElement = e.target as HTMLFormElement;
-      const formDataObj = new FormData(formElement);
-
-      await fetch('https://crm.freescout-installation.com/modules/Webforms/capture.php', {
-        method: 'POST',
-        body: formDataObj,
-        mode: 'no-cors'
-      });
-
-      window.location.href = '/thank-you.html';
-    } catch (error) {
-      setError('There was an error submitting the form. Please try again.');
-    } finally {
+    
+    // The form will be submitted directly to the action URL
+    // We just need to handle the loading state
+    setTimeout(() => {
       setLoading(false);
-    }
+    }, 1000);
   };
 
   return (
@@ -154,16 +125,21 @@ export default function Contact() {
               <h2 className="text-3xl font-bold text-center mb-8">Send Us a Message</h2>
 
               <form 
-                onSubmit={handleSubmit} 
-                className="space-y-6" 
+                id="__vtigerWebForm"
+                name="Contact_form-Website" 
+                action="https://crm.freescout-installation.com/modules/Webforms/capture.php" 
+                method="post" 
                 acceptCharset="utf-8" 
                 encType="multipart/form-data"
+                onSubmit={handleSubmit}
+                className="space-y-6"
               >
                 {/* Hidden VTiger fields */}
-                <input type="hidden" name="__vtrftk" value="sid:e7b5e02f433c00772efc52c9cdfa424eab277dc0,1730086685" />
+                <input type="hidden" name="__vtrftk" value="sid:2136072408e224df1825b84046a07075c1399e2b,1741068971" />
                 <input type="hidden" name="publicid" value="1f5c5e1de4787d458ba222d4368986bf" />
                 <input type="hidden" name="urlencodeenable" value="1" />
                 <input type="hidden" name="name" value="Contact_form-Website" />
+                <input type="hidden" name="leadsource" value="Contact-Page" />
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
@@ -176,8 +152,6 @@ export default function Contact() {
                       id="firstname"
                       name="firstname"
                       className="block w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:ring-2 focus:ring-[#75b666] focus:border-transparent transition duration-200"
-                      value={formData.firstname}
-                      onChange={(e) => setFormData({...formData, firstname: e.target.value})}
                     />
                   </div>
                   <div className="space-y-2">
@@ -191,8 +165,6 @@ export default function Contact() {
                       name="lastname"
                       required
                       className="block w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:ring-2 focus:ring-[#75b666] focus:border-transparent transition duration-200"
-                      value={formData.lastname}
-                      onChange={(e) => setFormData({...formData, lastname: e.target.value})}
                     />
                   </div>
                 </div>
@@ -209,8 +181,6 @@ export default function Contact() {
                       name="mobile"
                       required
                       className="block w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:ring-2 focus:ring-[#75b666] focus:border-transparent transition duration-200"
-                      value={formData.mobile}
-                      onChange={(e) => setFormData({...formData, mobile: e.target.value})}
                     />
                   </div>
                   <div className="space-y-2">
@@ -224,8 +194,6 @@ export default function Contact() {
                       name="email"
                       required
                       className="block w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:ring-2 focus:ring-[#75b666] focus:border-transparent transition duration-200"
-                      value={formData.email}
-                      onChange={(e) => setFormData({...formData, email: e.target.value})}
                     />
                   </div>
                 </div>
@@ -241,8 +209,6 @@ export default function Contact() {
                     name="cf_874"
                     required
                     className="block w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:ring-2 focus:ring-[#75b666] focus:border-transparent transition duration-200"
-                    value={formData.cf_874}
-                    onChange={(e) => setFormData({...formData, cf_874: e.target.value})}
                   />
                 </div>
 
@@ -257,8 +223,6 @@ export default function Contact() {
                     rows={4}
                     required
                     className="block w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:ring-2 focus:ring-[#75b666] focus:border-transparent transition duration-200"
-                    value={formData.cf_1005}
-                    onChange={(e) => setFormData({...formData, cf_1005: e.target.value})}
                   ></textarea>
                 </div>
 
