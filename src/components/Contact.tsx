@@ -9,7 +9,7 @@ interface FormData {
   email: string;
   mobile: string;
   cf_874: string; // Subject
-  cf_876: string; // Message
+  cf_1005: string; // Message
 }
 
 export default function Contact() {
@@ -19,7 +19,7 @@ export default function Contact() {
     email: '',
     mobile: '',
     cf_874: '',
-    cf_876: ''
+    cf_1005: ''
   });
 
   const [loading, setLoading] = useState(false);
@@ -247,18 +247,18 @@ export default function Contact() {
                 </div>
 
                 <div className="space-y-2">
-                  <label htmlFor="cf_876" className="flex items-center text-sm font-medium text-gray-700">
+                  <label htmlFor="cf_1005" className="flex items-center text-sm font-medium text-gray-700">
                     <MessageSquare className="w-4 h-4 mr-2 text-[#75b666]" />
                     Message *
                   </label>
                   <textarea
-                    id="cf_876"
-                    name="cf_876"
+                    id="cf_1005"
+                    name="cf_1005"
                     rows={4}
                     required
                     className="block w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:ring-2 focus:ring-[#75b666] focus:border-transparent transition duration-200"
-                    value={formData.cf_876}
-                    onChange={(e) => setFormData({...formData, cf_876: e.target.value})}
+                    value={formData.cf_1005}
+                    onChange={(e) => setFormData({...formData, cf_1005: e.target.value})}
                   ></textarea>
                 </div>
 
